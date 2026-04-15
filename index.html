@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tawazun Detailing | Premium Mobile Service</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --brand-blue: #1e90ff;
+  --brand-gradient: linear-gradient(135deg, #1e90ff, #4facfe);
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.12);
+}
+
+html { 
+    scroll-behavior: smooth; 
+    /* Enhanced scroll physics */
+    scrollbar-width: thin;
+    scrollbar-color: var(--brand-blue) #050505;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #050505; 
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  cursor: none; 
+  position: relative;
+  -webkit-font-smoothing: antialiased; /* Smoother text rendering */
+}
+
+/* --- BACKGROUND ANIMATION --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(30, 144, 255, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 40%);
+  z-index: -1;
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: scale(1); }
+  to { transform: scale(1.1) translate(1%, 1%); }
+}
+
+/* --- SECTION DIVIDERS --- */
+.blue-divider {
+  width: 70%;
+  max-width: 800px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--brand-blue), transparent);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.4);
+  opacity: 0.6;
+}
+
+/* 1. REFINED CURSOR */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+.cursor-outline {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--brand-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  /* Transition handles the scaling, JS handles the movement for smoothness */
+  transition: width 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
+              height 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
+              transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 100px 24px;
+}
+
+/* 2. PREMIUM TYPOGRAPHY */
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  background: linear-gradient(90deg, #fff, var(--brand-blue), #4facfe, #fff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientFlow 8s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+/* 3. BUTTONS */
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 16px 36px;
+  margin: 10px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  border: 1px solid var(--brand-blue);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); /* Smoother curve */
+  background: transparent;
+}
+
+.btn:hover {
+  background: var(--brand-blue);
+  box-shadow: 0 0 30px rgba(30, 144, 255, 0.6);
+  transform: scale(1.05);
+}
+
+/* 4. SERVICE CARDS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1), 
+              border 0.3s ease, 
+              box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  text-align: center;
+  will-change: transform; /* Boosts performance */
+}
+
+.card:hover {
+  transform: translateY(-15px);
+  border-color: var(--brand-blue);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  opacity: 0.7;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.card ul li::before { content: "✓ "; color: var(--brand-blue); font-weight: bold; }
+
+.price { font-size: 2rem; color: var(--brand-blue); font-family: 'Montserrat'; }
+
+/* 5. SLIDER REDESIGN */
+.slider-container {
+  position: relative;
+  max-width: 800px;
+  margin: 50px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.slider-container img { width: 100%; display: block; pointer-events: none; }
+
+.before-image {
+  position: absolute;
+  top: 0; left: 0;
+  width: 50%; height: 100%;
+  overflow: hidden;
+  border-right: 3px solid white;
+  transition: width 0.1s ease-out; /* Makes slider feel more responsive */
+}
+
+#sliderRange {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+  z-index: 20;
+}
+
+#sliderRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 40px; height: 40px;
+  background: white;
+  border: 4px solid var(--brand-blue);
+  border-radius: 50%;
+}
+
+/* 6. WHATSAPP CATCHY BUTTON */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 18px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--brand-gradient);
+  z-index: 100;
+  animation: pulse-blue 2s infinite;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+@keyframes pulse-blue {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(30, 144, 255, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(30, 144, 255, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(30, 144, 255, 0); }
+}
+
+/* 7. FOOTER ICONS */
+.footer-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.icon-btn {
+  width: 55px; height: 55px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+}
+
+.icon-btn svg { width: 26px; fill: white; transition: 0.3s; }
+
+.icon-btn:hover {
+  transform: translateY(-5px);
+  border-color: var(--brand-blue);
+  background: rgba(30, 144, 255, 0.1);
+}
+
+.icon-btn:hover svg { fill: var(--brand-blue); }
+
+.fade { opacity:0; transform:translateY(30px); transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+.fade.show { opacity:1; transform:translateY(0); }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor-dot, .cursor-outline { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="cursor-dot" id="dot"></div>
+<div class="cursor-outline" id="outline"></div>
+
+<section class="container fade">
+  <img src="logo.jpeg" alt="Logo" style="width:140px; border-radius: 50%; border: 2px solid var(--brand-blue); margin-bottom: 20px;">
+  <h1>TAWAZUN DETAILING</h1>
+  <p class="hero-sub">The showroom finish, delivered to your doorstep. We specialize in high-end mobile automotive restoration.</p>
+  <div style="margin-top: 20px;">
+    <a href="#booking" class="btn">Book Appointment</a>
+    <a href="#work" class="btn" style="background: transparent;">View Gallery</a>
+  </div>
+</section>
+
+<div class="blue-divider"></div>
+
+<section class="container fade">
+  <h2 style="margin-bottom: 40px;">Our Packages</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Express Shine</h3>
+      <div class="price">$49+</div>
+      <ul>
+        <li>Hand Wash & Dry</li>
+        <li>Tire Dressing</li>
+        <li>Express Interior Vac</li>
+        <li>Windows In & Out</li>
+      </ul>
+      <a href="#booking" class="btn" style="width: 80%;">Select</a>
+    </div>
+
+    <div class="card" style="border-color: var(--brand-blue); background: rgba(30,144,255,0.05);">
+      <h3 style="color: var(--brand-blue);">Full Restore</h3>
+      <div class="price">$129+</div>
+      <ul>
+        <li>Decontamination Wash</li>
+        <li>Clay Bar Treatment</li>
+        <li>High-Gloss Wax</li>
+        <li>Deep Interior Scrub</li>
+      </ul>
+      <a href="#booking" class="btn" style="width: 80%; background: var(--brand-blue);">Popular</a>
+    </div>
+
+    <div class="card">
+      <h3>Ceramic Pro</h3>
+      <div class="price">$199+</div>
+      <ul>
+        <li>Paint Correction</li>
+        <li>1-Year Ceramic Lite</li>
+        <li>Steam Clean Interior</li>
+        <li>Engine Bay Detail</li>
+      </ul>
+      <a href="#booking" class="btn" style="width: 80%;">Select</a>
+    </div>
+  </div>
+</section>
+
+<div class="blue-divider"></div>
+
+<section id="work" class="container fade">
+  <h2>Unmatched Results</h2>
+  <p style="opacity:0.6; margin-bottom: 30px;">Slide to see the transformation</p>
+  <div class="slider-container">
+    <img src="after.png">
+    <div class="before-image" id="beforeBox">
+      <img src="before.png" style="width: 800px; max-width: none;">
+    </div>
+    <input type="range" id="sliderRange" value="50" min="0" max="100">
+  </div>
+</section>
+
+<div class="blue-divider"></div>
+
+<section class="container fade">
+  <h2>Trusted by Enthusiasts</h2>
+  <div class="cards" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+    <div class="card" style="padding: 25px;">
+      <div style="color: var(--brand-blue); margin-bottom: 10px;">★★★★★</div>
+      <p style="font-style: italic; font-size: 0.9rem;">"The attention to detail is insane. My 5-year-old SUV looks like it just rolled off the lot."</p>
+      <p style="font-weight: bold; margin-top: 15px;">- James W.</p>
+    </div>
+    <div class="card" style="padding: 25px;">
+      <div style="color: var(--brand-blue); margin-bottom: 10px;">★★★★★</div>
+      <p style="font-style: italic; font-size: 0.9rem;">"Super professional and convenient. They showed up right on time at my office."</p>
+      <p style="font-weight: bold; margin-top: 15px;">- Sarah L.</p>
+    </div>
+    <div class="card" style="padding: 25px;">
+      <div style="color: var(--brand-blue); margin-bottom: 10px;">★★★★★</div>
+      <p style="font-style: italic; font-size: 0.9rem;">"Best detailing service I've used. The mobile convenience is a game changer."</p>
+      <p style="font-weight: bold; margin-top: 15px;">- Mike R.</p>
+    </div>
+  </div>
+</section>
+
+<div class="blue-divider"></div>
+
+<section id="booking" class="container fade" style="max-width: 800px;">
+  <div class="card" style="text-align: left; display: block;">
+    <h2 style="text-align: center;">Reserve Your Date</h2>
+    <form style="display:grid; grid-template-columns: 1fr 1fr; gap:15px; margin-top:30px;" onsubmit="event.preventDefault(); alert('Booking Request Sent!');">
+      <input type="text" placeholder="Full Name" style="padding:15px; border-radius:10px; border:1px solid #333; background:#111; color:white;" required>
+      <input type="tel" placeholder="Phone Number" style="padding:15px; border-radius:10px; border:1px solid #333; background:#111; color:white;" required>
+      <select style="padding:15px; border-radius:10px; border:1px solid #333; background:#111; color:white; grid-column: span 2;" required>
+        <option value="" disabled selected>Package Interested In</option>
+        <option>Express Shine</option>
+        <option>Full Restore</option>
+        <option>Ceramic Pro</option>
+      </select>
+      <input type="text" placeholder="Service Address" style="padding:15px; border-radius:10px; border:1px solid #333; background:#111; color:white; grid-column: span 2;" required>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-size: 0.8rem; opacity: 0.6;">Preferred Date</label>
+        <input type="date" style="padding:15px; border-radius:10px; border:1px solid #333; background:#111; color:white;" required>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:5px;">
+        <label style="font-size: 0.8rem; opacity: 0.6;">Preferred Time</label>
+        <input type="time" style="padding:15px; border-radius:10px; border:1px solid #333; background:#111; color:white;" required>
+      </div>
+      <button type="submit" class="btn" style="cursor: pointer; background: var(--brand-blue); font-family: 'Montserrat'; grid-column: span 2; margin: 10px 0 0 0;">Send Booking Request</button>
+    </form>
+  </div>
+</section>
+
+<footer style="padding: 50px 0; border-top: 1px solid var(--glass-border);">
+  <div class="footer-icons">
+     <a href="https://mail.google.com/mail/?view=cm&to=admin@tawazunllc.com" target="_blank" class="icon-btn">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </a>
+    <a href="https://wa.me/61402592357" target="_blank" class="icon-btn">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.394 0 12.03c0 2.12.551 4.189 1.597 6.011L0 24l6.135-1.61a11.77 11.77 0 005.911 1.586h.005c6.634 0 12.032-5.396 12.036-12.032a11.761 11.761 0 00-3.486-8.453z"/></svg>
+    </a>
+    <a href="https://instagram.com/varren.tr" target="_blank" class="icon-btn">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.063 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.063-2.633-.333-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.355 2.618 6.778 6.98 6.978 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.668-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4.162 4.162 0 110-8.324 4.162 4.162 0 010 8.324zM18.406 4.162a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
+    </a>
+  </div>
+  <p style="opacity: 0.4; font-size: 0.8rem;">&copy; 2026 Tawazun Detailing. Premium Mobile Care.</p>
+</footer>
+
+<a class="whatsapp-float" href="https://wa.me/61402592357" target="_blank">
+  <span>Chat with Us</span>
+</a>
+
+<script>
+const dot = document.getElementById('dot');
+const outline = document.getElementById('outline');
+
+// SMOTTHER CURSOR LOGIC (Lerping)
+let mouseX = 0, mouseY = 0;
+let outlineX = 0, outlineY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
+});
+
+function animateCursor() {
+  // Lerp: Moves 15% of the distance each frame for fluid lag
+  outlineX += (mouseX - outlineX) * 0.15;
+  outlineY += (mouseY - outlineY) * 0.15;
+  
+  outline.style.left = outlineX + 'px';
+  outline.style.top = outlineY + 'px';
+  
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+document.querySelectorAll('a, button, input, select').forEach(el => {
+  el.addEventListener('mouseenter', () => outline.style.transform = 'translate(-50%, -50%) scale(1.5)');
+  el.addEventListener('mouseleave', () => outline.style.transform = 'translate(-50%, -50%) scale(1)');
+});
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+
+const slider = document.getElementById('sliderRange');
+const before = document.getElementById('beforeBox');
+slider.addEventListener('input', () => {
+  before.style.width = slider.value + '%';
+});
+</script>
+
+</body>
+</html>
