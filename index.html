@@ -1,0 +1,401 @@
+<!-- ========================= index.html ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tawazun Detailing — Premium mobile car detailing service.">
+  <title>Tawazun Detailing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       CUSTOM CURSOR
+       Two-layer cursor: dot (instant) + outline ring (lerped)
+  ============================================================ -->
+  <div class="cursor-dot" id="dot"></div>
+  <div class="cursor-outline" id="outline"></div>
+
+
+  <!-- ============================================================
+       HERO SECTION
+       Brand logo, headline, sub-copy, and primary CTA buttons
+  ============================================================ -->
+  <section class="container fade">
+    <img
+      src="assets/logo.jpeg"
+      alt="Tawazun Detailing logo"
+      style="width:140px; border-radius:50%; border:2px solid var(--brand-blue); margin-bottom:20px;"
+    >
+    <h1>TAWAZUN DETAILING</h1>
+    <p class="hero-sub">
+      We will bring your car back to its showroom look. Balance is in our brand name —
+      book below and we will be at your driveway at the appointed date.
+    </p>
+    <div style="margin-top:20px;">
+      <a href="#booking" class="btn">Book Appointment</a>
+      <a href="#work" class="btn" style="background:transparent;">View Gallery</a>
+    </div>
+  </section>
+
+  <div class="blue-divider"></div>
+
+
+  <!-- ============================================================
+       PACKAGES SECTION
+       Three-tier pricing cards: Bronze, Silver (featured), Gold
+  ============================================================ -->
+  <section class="container fade">
+    <h2 style="margin-bottom:40px;">Our Packages</h2>
+    <div class="cards">
+
+      <!-- Bronze -->
+      <div class="card">
+        <h3>🥉 Bronze</h3>
+        <p style="font-size:0.9rem; opacity:0.7;">Express Shine</p>
+        <div class="price">$50</div>
+        <ul>
+          <li>Exterior Hand Wash</li>
+          <li>Tire Dressing</li>
+          <li>Windows (In &amp; Out)</li>
+          <li>Door Jamb Cleaning</li>
+          <li>Bug &amp; Tar Removal</li>
+        </ul>
+        <p style="font-size:0.9rem; opacity:0.8;">
+          Perfect for quick maintenance and a fresh clean.
+        </p>
+        <a href="#booking" class="btn" style="width:80%;">Get Quick Clean</a>
+      </div>
+
+      <!-- Silver — Featured / Most Popular -->
+      <div class="card card--featured">
+        <h3 style="color:var(--brand-blue);">🥈 Silver</h3>
+        <p style="font-size:0.9rem; color:var(--brand-blue);">Full Restore</p>
+        <div class="price">$150</div>
+        <ul>
+          <li>Deep Decontamination Wash</li>
+          <li>High-Gloss Protective Wax</li>
+          <li>Full Interior Deep Cleaning</li>
+          <li>Steam Sanitization</li>
+          <li>Tire Shine</li>
+          <li>Iron Fallout Removal</li>
+        </ul>
+        <p style="font-size:0.9rem; font-weight:600;">
+          ⭐ Most Popular — complete inside &amp; out transformation
+        </p>
+        <a href="#booking" class="btn btn--solid" style="width:80%;">Book Full Detail</a>
+      </div>
+
+      <!-- Gold -->
+      <div class="card">
+        <h3>🥇 Gold</h3>
+        <p style="font-size:0.9rem; opacity:0.7;">Ceramic Pro</p>
+        <div class="price">$230</div>
+        <ul>
+          <li>Complete Interior &amp; Exterior Detail</li>
+          <li>Engine Bay Cleaning</li>
+          <li>Steam Cleaning &amp; Sanitization</li>
+          <li>Leather Conditioning</li>
+          <li>Seat Shampoo Extraction</li>
+          <li>Odor Removal</li>
+          <li>UV Interior Protection</li>
+          <li>Tire Shine</li>
+        </ul>
+        <p style="font-size:0.9rem; opacity:0.8;">
+          Premium package for a showroom-quality finish.
+        </p>
+        <a href="#booking" class="btn" style="width:80%;">Go Premium</a>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="blue-divider"></div>
+
+
+  <!-- ============================================================
+       BEFORE / AFTER GALLERY SECTION
+       Single-slide snap scroll. Each .gallery-frame is 3:4 portrait.
+       Navigation arrows (desktop) and pagination dots wired in
+       script.js module 6.
+  ============================================================ -->
+  <section id="work" class="container fade">
+    <h2>Unmatched Results</h2>
+    <p style="opacity:0.6; margin-bottom:30px;">Slide to compare · Use arrows to browse</p>
+
+    <div class="gallery-viewport">
+
+      <!-- Previous arrow — desktop only -->
+      <button class="nav-btn prev" aria-label="Previous slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="15 18 9 12 15 6"/>
+        </svg>
+      </button>
+
+      <div class="gallery-carousel">
+
+        <!-- Slide 1: Paint Correction -->
+        <div class="gallery-slide">
+          <div class="gallery-frame">
+            <div class="slider-container">
+              <img src="assets/exteriorafter.jpeg" loading="lazy" alt="Paint correction result — polished clear coat finish">
+              <div class="before-image">
+                <img src="assets/exterior before.jpeg" loading="lazy" alt="Paint correction before — swirled and dull paintwork">
+              </div>
+              <input type="range" class="sliderRange" value="50" min="0" max="100" aria-label="Paint Correction before and after slider">
+            </div>
+            <span class="slide-caption">Paint Correction</span>
+          </div>
+        </div>
+
+        <!-- Slide 2: Interior Deep Clean -->
+        <div class="gallery-slide">
+          <div class="gallery-frame">
+            <div class="slider-container">
+              <img src="assets/interiorafter.jpeg" loading="lazy" alt="Interior deep clean result — fresh and sanitised cabin">
+              <div class="before-image">
+                <img src="assets/interiorbefore.jpeg" loading="lazy" alt="Interior deep clean before — stained and dirty seats">
+              </div>
+              <input type="range" class="sliderRange" value="50" min="0" max="100" aria-label="Interior Deep Clean before and after slider">
+            </div>
+            <span class="slide-caption">Interior Deep Clean</span>
+          </div>
+        </div>
+
+        <!-- Slide 3: Ceramic Coating Finish -->
+        <div class="gallery-slide">
+          <div class="gallery-frame">
+            <div class="slider-container">
+              <img src="assets/bootafter.jpeg" loading="lazy" alt="Ceramic coating result — deep gloss hydrophobic finish">
+              <div class="before-image">
+                <img src="assets/bootbefore.jpeg" loading="lazy" alt="Ceramic coating before — oxidised and unprotected paint">
+              </div>
+              <input type="range" class="sliderRange" value="50" min="0" max="100" aria-label="Ceramic Coating Finish before and after slider">
+            </div>
+            <span class="slide-caption">Ceramic Coating Finish</span>
+          </div>
+        </div>
+
+        <!-- Slide 4: Engine Bay Detail -->
+        <div class="gallery-slide">
+          <div class="gallery-frame">
+            <div class="slider-container">
+              <img src="assets/enginbayafter.jpeg" loading="lazy" alt="Engine bay detail result — clean and dressed components">
+              <div class="before-image">
+                <img src="assets/enginbaybefore.jpeg" loading="lazy" alt="Engine bay detail before — greasy and grimy engine bay">
+              </div>
+              <input type="range" class="sliderRange" value="50" min="0" max="100" aria-label="Engine Bay Detail before and after slider">
+            </div>
+            <span class="slide-caption">Engine Bay Detail</span>
+          </div>
+        </div>
+
+        <!-- Slide 5: Leather Restoration -->
+        <div class="gallery-slide">
+          <div class="gallery-frame">
+            <div class="slider-container">
+              <img src="assets/tyerafter.jpeg" loading="lazy" alt="Leather restoration result — conditioned and supple seats">
+              <div class="before-image">
+                <img src="assets/tryersbefore .jpeg" loading="lazy" alt="Leather restoration before — cracked and faded leather">
+              </div>
+              <input type="range" class="sliderRange" value="50" min="0" max="100" aria-label="Leather Restoration before and after slider">
+            </div>
+            <span class="slide-caption">Leather Restoration</span>
+          </div>
+        </div>
+
+      </div><!-- /.gallery-carousel -->
+
+      <!-- Next arrow — desktop only -->
+      <button class="nav-btn next" aria-label="Next slide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
+    </div><!-- /.gallery-viewport -->
+
+    <!-- Pagination dots — active state driven by scroll in JS module 6 -->
+    <div class="gallery-pagination" role="tablist" aria-label="Gallery slides">
+      <span class="dot active" role="tab" aria-label="Slide 1: Paint Correction"></span>
+      <span class="dot" role="tab" aria-label="Slide 2: Interior Deep Clean"></span>
+      <span class="dot" role="tab" aria-label="Slide 3: Ceramic Coating Finish"></span>
+      <span class="dot" role="tab" aria-label="Slide 4: Engine Bay Detail"></span>
+      <span class="dot" role="tab" aria-label="Slide 5: Leather Restoration"></span>
+    </div>
+
+  </section>
+
+  <div class="blue-divider"></div>
+
+
+  <!-- ============================================================
+       TESTIMONIALS SECTION
+       Three social-proof review cards from real customers
+  ============================================================ -->
+  <!-- 
+  <section class="container fade">
+    <h2>Trusted by Enthusiasts</h2>
+    <div class="cards" style="grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));">
+
+      <div class="card card--review">
+        <div style="color:var(--brand-blue); margin-bottom:10px;">★★★★★</div>
+        <p style="font-style:italic; font-size:0.9rem;">
+          "The attention to detail is insane. My 5-year-old SUV looks like it just rolled off the lot."
+        </p>
+        <p style="font-weight:bold; margin-top:15px;">- James W.</p>
+      </div>
+
+      <div class="card card--review">
+        <div style="color:var(--brand-blue); margin-bottom:10px;">★★★★★</div>
+        <p style="font-style:italic; font-size:0.9rem;">
+          "Super professional and convenient. They showed up right on time at my office."
+        </p>
+        <p style="font-weight:bold; margin-top:15px;">- Sarah L.</p>
+      </div>
+
+      <div class="card card--review">
+        <div style="color:var(--brand-blue); margin-bottom:10px;">★★★★★</div>
+        <p style="font-style:italic; font-size:0.9rem;">
+          "Best detailing service I've used. The mobile convenience is a game changer."
+        </p>
+        <p style="font-weight:bold; margin-top:15px;">- Mike R.</p>
+      </div>
+
+    </div>
+  </section>
+  -->
+
+  <div class="blue-divider"></div>
+
+
+  <!-- ============================================================
+       BOOKING SECTION
+       Contact form: name, phone, package selection, address, date/time
+  ============================================================ -->
+  <section id="booking" class="container fade" style="max-width:800px;">
+    <div class="card" style="text-align:left; display:block;">
+      <h2 style="text-align:center;">Reserve Your Date</h2>
+      <form class="booking-form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="tel" placeholder="Phone Number" required>
+        <select style="grid-column:span 2;" required>
+          <option value="" disabled selected>Package Interested In</option>
+          <option>Express Shine</option>
+          <option>Full Restore</option>
+          <option>Ceramic Pro</option>
+        </select>
+        <input type="text" placeholder="Service Address" style="grid-column:span 2;" required>
+        <div style="display:flex; flex-direction:column; gap:5px; grid-column:span 2;">
+          <label style="font-size:0.8rem; opacity:0.6;">Preferred Date</label>
+          <input type="date" required>
+        </div>
+        <textarea
+          name="description and message"
+          placeholder="Description & Message (e.g., 2024 Tesla Model 3, Ceramic Coating inquiry, or heavy interior staining)"
+          class="booking-textarea"
+          style="grid-column:span 2;"
+          required
+        ></textarea>
+        <button type="submit" class="btn btn--solid btn--submit">Send Booking Request</button>
+      </form>
+
+      <!-- Confirmation message — revealed by JS on submit -->
+      <div class="booking-confirmation" id="bookingConfirmation">
+        <div class="confirm-icon">✅</div>
+        <h3>You're All Set!</h3>
+        <p id="confirmText"></p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER (GRID — DARK LUXURY)
+       3-column: Brand | Contact Us | Follow Us
+  ============================================================ -->
+  <footer class="main-footer">
+    <div class="footer-grid">
+
+      <!-- Col 1: Brand -->
+      <div class="footer-col footer-col--brand">
+        <img src="assets/logo.jpeg" alt="Tawazun Detailing logo" class="footer-logo">
+        <p class="footer-tagline">Mobile car detailing at your doorstep.</p>
+        <p class="service-line">Serving all of Sydney<br>Mon – Sat &nbsp;9:00 – 19:00</p>
+      </div>
+
+      <!-- Col 2: Contact Us -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Contact Us</h4>
+        <a href="tel:+61402592357" class="contact-link">
+          <span class="contact-icon">
+            <!-- Phone SVG -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </span>
+          +61 402 592 357
+        </a>
+        <a href="mailto:admin@tawazunllc.com"
+           class="contact-link smart-email"
+           data-email="admin@tawazunllc.com">
+          <span class="contact-icon">
+            <!-- Email SVG -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </span>
+          admin@tawazunllc.com
+        </a>
+        <a href="https://wa.me/61402592357" target="_blank" rel="noopener" class="contact-link">
+          <span class="contact-icon">
+            <!-- WhatsApp SVG -->
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.394 0 12.03c0 2.12.551 4.189 1.597 6.011L0 24l6.135-1.61a11.77 11.77 0 005.911 1.586h.005c6.634 0 12.032-5.396 12.036-12.032a11.761 11.761 0 00-3.486-8.453z"/></svg>
+          </span>
+          WhatsApp Us
+        </a>
+      </div>
+
+      <!-- Col 3: Follow Us -->
+      <div class="footer-col">
+        <h4 class="footer-heading">Follow Us</h4>
+        <div class="footer-icons">
+          <!-- Instagram -->
+          <a href="https://instagram.com/tawazun_detailing" target="_blank" rel="noopener" class="icon-btn" aria-label="Follow on Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.633.332 3.608 1.308.975.975 1.245 2.242 1.308 3.608.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.063 1.366-.333 2.633-1.308 3.608-.975.975-2.242 1.245-3.608 1.308-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.366-.063-2.633-.333-3.608-1.308-.975-.975-1.245-2.242-1.308-3.608-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.062-1.366.332-2.633 1.308-3.608.975-.975 2.242-1.245 3.608-1.308 1.266-.058 1.646-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.355 2.618 6.778 6.98 6.978 1.28.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.668-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4.162 4.162 0 110-8.324 4.162 4.162 0 010 8.324zM18.406 4.162a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"/></svg>
+          </a>
+          <!-- TikTok -->
+          <a href="https://www.tiktok.com/@tawazundetailing" target="_blank" rel="noopener" class="icon-btn" aria-label="Follow on TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.589 6.686a4.793 4.793 0 01-3.77-1.882V15.37a5.37 5.37 0 11-4.66-5.325v2.764a2.606 2.606 0 102.2 2.561V0h2.64a4.79 4.79 0 003.59 4.588v2.098z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/61402592357" target="_blank" rel="noopener" class="icon-btn" aria-label="Chat on WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.394 0 12.03c0 2.12.551 4.189 1.597 6.011L0 24l6.135-1.61a11.77 11.77 0 005.911 1.586h.005c6.634 0 12.032-5.396 12.036-12.032a11.761 11.761 0 00-3.486-8.453z"/></svg>
+          </a>
+          <!-- Email -->
+          <a href="mailto:admin@tawazunllc.com"
+             class="icon-btn smart-email"
+             data-email="admin@tawazunllc.com"
+             aria-label="Send us an email">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </a>
+        </div>
+      </div>
+
+    </div><!-- /footer-grid -->
+
+    <!-- Bottom credit bar -->
+    <p class="credit-line">
+      © 2026 Tawazun • Website by
+      <a href="https://varren.com.tr" target="_blank" rel="noopener" class="credit-link">varren.com.tr</a>
+    </p>
+
+  </footer>
+
+  <!-- FLOATING WHATSAPP (UNCHANGED) -->
+  <a class="whatsapp-float" href="https://wa.me/61402592357" target="_blank" rel="noopener" aria-label="Chat with Tawazun Detailing on WhatsApp">
+    <span>WhatsApp</span>
+  </a>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1042 @@
+/* ================================================================
+   STYLE.CSS — Tawazun Detailing
+   Hierarchy:
+     1. Root Variables
+     2. Global Resets & Base
+     3. Typography
+     4. Layout Components
+        4a. Containers & Dividers
+        4b. Buttons
+        4c. Cards
+        4d. Before/After Slider
+        4e. Booking Form
+        4f. Footer
+        4g. Floating WhatsApp CTA
+     5. Custom Cursor
+     6. Scroll Fade Utility
+     7. Animations
+     8. Responsive Overrides
+================================================================ */
+
+
+/* ----------------------------------------------------------------
+   1. ROOT VARIABLES
+---------------------------------------------------------------- */
+:root {
+  --brand-blue:     #1e90ff;
+  --brand-gradient: linear-gradient(135deg, #1e90ff, #4facfe);
+  --glass:          rgba(255, 255, 255, 0.05);
+  --glass-border:   rgba(255, 255, 255, 0.12);
+}
+
+
+/* ----------------------------------------------------------------
+   2. GLOBAL RESETS & BASE
+---------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--brand-blue) #050505;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #050505;
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  cursor: none;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Animated ambient background radial gradients */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(30, 144, 255, 0.1) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 40%);
+  z-index: -1;
+  animation: drift 20s ease-in-out infinite alternate;
+}
+
+
+/* ----------------------------------------------------------------
+   3. TYPOGRAPHY
+---------------------------------------------------------------- */
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  background: linear-gradient(90deg, #fff, var(--brand-blue), #4facfe, #fff);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradientFlow 8s linear infinite;
+  margin-bottom: 10px;
+}
+
+.hero-sub {
+  font-size: 1.2rem;
+  opacity: 0.8;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.price {
+  font-size: 2rem;
+  color: var(--brand-blue);
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+/* ----------------------------------------------------------------
+   4a. LAYOUT — Containers & Dividers
+---------------------------------------------------------------- */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 100px 24px;
+}
+
+.blue-divider {
+  width: 70%;
+  max-width: 800px;
+  height: 1px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, var(--brand-blue), transparent);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.4);
+  opacity: 0.6;
+}
+
+
+/* ----------------------------------------------------------------
+   4b. LAYOUT — Buttons
+---------------------------------------------------------------- */
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: 16px 36px;
+  margin: 10px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  font-weight: 600;
+  border: 1px solid var(--brand-blue);
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background: transparent;
+}
+
+.btn:hover {
+  background: var(--brand-blue);
+  box-shadow: 0 0 30px rgba(30, 144, 255, 0.6);
+  transform: scale(1.05);
+}
+
+/* Solid pre-filled variant used on featured card and form */
+.btn--solid {
+  background: var(--brand-blue);
+}
+
+/* Booking form submit button — full width inside grid */
+.btn--submit {
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  grid-column: span 2;
+  margin: 10px 0 0 0;
+}
+
+
+/* ----------------------------------------------------------------
+   4c. LAYOUT — Cards Grid & Individual Cards
+---------------------------------------------------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 1px solid var(--glass-border);
+  transition:
+    transform   0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+    border      0.3s ease,
+    box-shadow  0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  will-change: transform;
+}
+
+.card:hover {
+  transform: translateY(-15px);
+  border-color: var(--brand-blue);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Checklist inside package cards */
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  opacity: 0.7;
+  font-size: 0.95rem;
+  text-align: left;
+}
+
+.card ul li::before {
+  content: "✓ ";
+  color: var(--brand-blue);
+  font-weight: bold;
+}
+
+/* Featured (Silver) card — highlighted state */
+.card--featured {
+  border-color: var(--brand-blue);
+  background: rgba(30, 144, 255, 0.05);
+  transform: scale(1.05);
+}
+
+/* Compact padding for testimonial review cards */
+.card--review {
+  padding: 25px;
+}
+
+
+/* Viewport — positions nav arrows relative to the carousel */
+.gallery-viewport {
+  position: relative;
+}
+
+/* Glass-morphism arrow buttons */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  /* Keep arrows from intercepting slider drag gestures */
+  pointer-events: auto;
+}
+
+.nav-btn svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.nav-btn:hover {
+  background: rgba(30, 144, 255, 0.15);
+  border-color: var(--brand-blue);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn.prev { left: -24px; }
+.nav-btn.next { right: -24px; }
+
+/* Pagination dots container */
+.gallery-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* Individual dot */
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Active dot — brand blue with glow */
+.dot.active {
+  background: var(--brand-blue);
+  box-shadow: 0 0 8px rgba(30, 144, 255, 0.7);
+  transform: scale(1.25);
+}
+
+.dot:hover:not(.active) {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* ----------------------------------------------------------------
+   4d. LAYOUT — Before / After Gallery Carousel (3:4 Portrait Frames)
+   Single-slide snap scroll. Frame scales on hover with caption
+   pop animation. Images fill frame with object-fit: cover.
+---------------------------------------------------------------- */
+
+/* --- GALLERY CAROUSEL --- */
+.gallery-carousel {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 20px 0 40px;
+  margin: 0;
+  cursor: grab;
+  scrollbar-width: none;
+}
+
+.gallery-carousel:active {
+  cursor: grabbing;
+}
+
+.gallery-carousel::-webkit-scrollbar { display: none; }
+
+/* One slide at a time on all screens */
+.gallery-slide {
+  flex: 0 0 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  scroll-snap-align: center;
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* --- 3:4 FRAME with hover effects --- */
+.gallery-frame {
+  position: relative;
+  width: 90%;
+  max-width: 450px;
+  aspect-ratio: 3 / 4;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background: #000;
+}
+
+.gallery-frame:hover {
+  transform: scale(1.02);
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 30px rgba(30, 144, 255, 0.3), 0 30px 60px rgba(0, 0, 0, 0.7);
+}
+
+/* Slider fills the frame completely */
+.slider-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Images cover the 3:4 frame — no letterboxing */
+.slider-container img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Before image clips from the left */
+.before-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  border-right: 3px solid white;
+  transition: width 0.08s ease-out;
+}
+
+/* Slider handle — heavy, premium feel */
+.slider-handle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  border: 4px solid var(--brand-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  z-index: 25;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+              box-shadow 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.before-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Range input covers the full frame */
+.sliderRange {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+  z-index: 20;
+  padding: 0;
+  margin: 0;
+}
+
+.sliderRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 4px solid var(--brand-blue);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  cursor: ew-resize;
+}
+
+.sliderRange::-moz-range-thumb {
+  width: 44px;
+  height: 44px;
+  background: white;
+  border: 4px solid var(--brand-blue);
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  cursor: ew-resize;
+}
+
+/* --- CAPTION — pops up and glows on frame hover --- */
+.slide-caption {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  z-index: 30;
+  padding: 10px 25px;
+  border-radius: 50px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid var(--brand-blue);
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.8;
+  pointer-events: none;
+  transition: all 0.4s ease;
+}
+
+.gallery-frame:hover .slide-caption {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  background: var(--brand-blue);
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.6);
+}
+
+
+
+/* ----------------------------------------------------------------
+   4e. LAYOUT — Booking Form
+---------------------------------------------------------------- */
+.booking-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.booking-form input,
+.booking-form select {
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+}
+
+/* Date input — full-width block with hover/focus glow */
+.booking-form input[type="date"] {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  /* Prevent iOS from applying its own opinionated styling */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.booking-form input[type="date"]:hover {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
+}
+
+.booking-form input[type="date"]:focus {
+  outline: none;
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
+}
+
+/* Invert the native calendar icon so it's visible on dark backgrounds.
+   The blue filter chain: invert → sepia → saturate → hue-rotate
+   approximates var(--brand-blue) #1e90ff on all WebKit browsers.    */
+.booking-form input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) sepia(1) saturate(3) hue-rotate(190deg);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.booking-form input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 0.75;
+}
+
+/* Textarea — matches input styling with focus glow */
+.booking-textarea {
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background: #111;
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  min-height: 120px;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.booking-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.booking-textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 12px rgba(30, 144, 255, 0.25);
+}
+
+/* Booking confirmation message — shown after successful submit */
+.booking-confirmation {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.booking-confirmation .confirm-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.booking-confirmation h3 {
+  color: var(--brand-blue);
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  letter-spacing: 1px;
+}
+
+.booking-confirmation p {
+  font-size: 1rem;
+  opacity: 0.8;
+  max-width: 480px;
+  line-height: 1.7;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ----------------------------------------------------------------
+   4f. LAYOUT — Footer (Grid)
+---------------------------------------------------------------- */
+.main-footer {
+  padding: 80px 40px 0;
+  border-top: 1px solid var(--glass-border);
+}
+
+/* ── 3-column grid ── */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 60px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Columns — left-aligned by default ── */
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* ── Logo ── */
+.footer-logo {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--brand-blue);
+  box-shadow: 0 0 18px rgba(30, 144, 255, 0.25);
+  object-fit: cover;
+  margin-bottom: 4px;
+}
+
+/* ── Tagline ── */
+.footer-tagline {
+  font-size: 0.95rem;
+  opacity: 0.55;
+  margin: 0;
+  letter-spacing: 0.3px;
+  line-height: 1.6;
+}
+
+/* ── Service & hours line ── */
+.service-line {
+  font-size: 0.82rem;
+  opacity: 0.38;
+  margin: 4px 0 0;
+  letter-spacing: 0.3px;
+  line-height: 1.7;
+}
+
+/* ── Column headings ── */
+.footer-heading {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--brand-blue);
+  margin: 0 0 6px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(30, 144, 255, 0.25);
+  width: 100%;
+}
+
+/* ── Contact links (phone / email / whatsapp rows) ── */
+.contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  transition: color 0.3s ease,
+              text-shadow 0.3s ease,
+              transform 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #fff;
+  text-shadow: 0 0 14px rgba(30, 144, 255, 0.6);
+  transform: translateX(5px);
+}
+
+/* Icon inside contact link */
+.contact-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(30, 144, 255, 0.08);
+  border: 1px solid rgba(30, 144, 255, 0.18);
+  flex-shrink: 0;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.contact-link:hover .contact-icon {
+  background: rgba(30, 144, 255, 0.18);
+  border-color: var(--brand-blue);
+}
+
+.contact-icon svg {
+  width: 15px;
+  height: 15px;
+  color: var(--brand-blue);
+  flex-shrink: 0;
+}
+
+/* ── Social icon row ── */
+.footer-icons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  text-decoration: none;
+  transition: transform      0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              border-color   0.3s ease,
+              background     0.3s ease,
+              filter         0.3s ease;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: rgba(255, 255, 255, 0.65);
+  stroke: none;
+  transition: fill 0.3s ease;
+}
+
+/* Email icon uses stroke, not fill */
+.icon-btn svg[fill="none"] {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.65);
+  transition: stroke 0.3s ease;
+}
+
+.icon-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--brand-blue);
+  background: rgba(30, 144, 255, 0.08);
+  filter: drop-shadow(0 4px 10px rgba(30, 144, 255, 0.35));
+}
+
+.icon-btn:hover svg {
+  fill: var(--brand-blue);
+}
+
+.icon-btn:hover svg[fill="none"] {
+  fill: none;
+  stroke: var(--brand-blue);
+}
+
+/* ── Credit line ── */
+.credit-line {
+  font-size: 0.78rem;
+  color: #444;
+  margin: 0;
+  padding: 24px 0 32px;
+  text-align: center;
+}
+
+/* ── Agency link — Emerald → Blue gradient on hover ── */
+.credit-link {
+  color: #555;
+  text-decoration: none;
+  font-weight: 600;
+  background: linear-gradient(90deg, #10b981, var(--brand-blue));
+  background-size: 200%;
+  background-position: right center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: #555;
+  transition: background-position 0.4s ease, -webkit-text-fill-color 0.3s ease;
+}
+
+.credit-link:hover {
+  background-position: left center;
+  -webkit-text-fill-color: transparent;
+}
+
+
+/* ----------------------------------------------------------------
+   4g. LAYOUT — Floating WhatsApp CTA
+---------------------------------------------------------------- */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  padding: 18px 30px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: var(--brand-gradient);
+  z-index: 100;
+  animation: pulseBlue 2s infinite;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+}
+
+
+
+/* ----------------------------------------------------------------
+   5. CUSTOM CURSOR
+   Dot: snaps instantly to mouse position via JS.
+   Outline ring: lerps (lags) behind for a fluid trail effect.
+---------------------------------------------------------------- */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.cursor-outline {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--brand-blue);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+  /* Only size/scale transitions — position is handled by JS lerp */
+  transition:
+    width   0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    height  0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+
+/* ----------------------------------------------------------------
+   6. SCROLL FADE UTILITY
+   Elements start hidden; the IntersectionObserver in script.js
+   adds .show when they enter the viewport.
+---------------------------------------------------------------- */
+.fade {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fade.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ----------------------------------------------------------------
+   7. ANIMATIONS
+---------------------------------------------------------------- */
+
+/* Slow drift of ambient background gradient blobs */
+@keyframes drift {
+  from { transform: scale(1); }
+  to   { transform: scale(1.1) translate(1%, 1%); }
+}
+
+/* Desktop parallax keyframes for background blobs */
+@keyframes parallaxDriftA {
+  0%   { background-position: 10% 20%, 90% 80%; }
+  25%  { background-position: 15% 30%, 85% 70%; }
+  50%  { background-position: 8%  25%, 92% 75%; }
+  75%  { background-position: 12% 15%, 88% 85%; }
+  100% { background-position: 10% 20%, 90% 80%; }
+}
+
+/* Continuous gradient sweep across the H1 text */
+@keyframes gradientFlow {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* Pulsing ring effect on the floating WhatsApp button */
+@keyframes pulseBlue {
+  0%   { transform: scale(0.95); box-shadow: 0 0 0 0   rgba(30, 144, 255, 0.7); }
+  70%  { transform: scale(1);    box-shadow: 0 0 0 15px rgba(30, 144, 255, 0);   }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0   rgba(30, 144, 255, 0);   }
+}
+
+
+/* ----------------------------------------------------------------
+   8. RESPONSIVE OVERRIDES — Mobile Excellence & IG Story Feel
+---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Restore default cursor on touch devices */
+  body {
+    cursor: auto;
+  }
+
+  .cursor-dot,
+  .cursor-outline {
+    display: none;
+  }
+
+  /* ── IG Story Snap: lock gallery to card boundaries on swipe ── */
+  .gallery-carousel {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .gallery-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gallery-slide {
+    scroll-snap-align: center;
+    flex: 0 0 100vw;
+  }
+
+  .gallery-frame {
+    width: 85%;
+  }
+
+  /* Arrows unnecessary on touch — swipe is the affordance */
+  .nav-btn {
+    display: none;
+  }
+
+  /* ── Auto-Zoom Fix: 16px minimum stops iOS from zooming in ── */
+  input,
+  select,
+  textarea,
+  .booking-textarea {
+    font-size: 16px !important;
+  }
+
+  /* ── Large Touch Targets: 50px height for thumb-friendly tapping ── */
+  .btn,
+  a.btn {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px;
+  }
+
+  .contact-link {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .footer-link {
+    min-height: 50px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Haptic Tap Feel: physical 'press' response on all tappable elements ── */
+  .btn:active,
+  a.btn:active,
+  .contact-link:active,
+  .icon-btn:active,
+  .whatsapp-float:active,
+  button:active {
+    transform: scale(0.96) !important;
+    transition: transform 0.1s ease !important;
+  }
+
+  /* ── Footer: stack all columns vertically, center-aligned ── */
+  .main-footer {
+    padding: 60px 24px 0;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .footer-col {
+    align-items: center;
+  }
+
+  .footer-heading {
+    text-align: center;
+  }
+
+  .footer-icons {
+    justify-content: center;
+  }
+
+  .credit-line {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+
+/* ----------------------------------------------------------------
+   Desktop Parallax: smooth blob drift above 1024px keeps site 'alive'
+---------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  body::before {
+    background:
+      radial-gradient(circle at var(--blob-x1, 10%) var(--blob-y1, 20%), rgba(30, 144, 255, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at var(--blob-x2, 90%) var(--blob-y2, 80%), rgba(79, 172, 254, 0.12) 0%, transparent 40%);
+    animation: drift 20s ease-in-out infinite alternate, blobDriftDesktop 30s ease-in-out infinite;
+  }
+
+  @keyframes blobDriftDesktop {
+    0%   { --blob-x1: 10%; --blob-y1: 20%; --blob-x2: 90%; --blob-y2: 80%; }
+    20%  { --blob-x1: 18%; --blob-y1: 12%; --blob-x2: 82%; --blob-y2: 72%; }
+    40%  { --blob-x1: 6%;  --blob-y1: 28%; --blob-x2: 94%; --blob-y2: 65%; }
+    60%  { --blob-x1: 22%; --blob-y1: 18%; --blob-x2: 78%; --blob-y2: 88%; }
+    80%  { --blob-x1: 14%; --blob-y1: 8%;  --blob-x2: 86%; --blob-y2: 76%; }
+    100% { --blob-x1: 10%; --blob-y1: 20%; --blob-x2: 90%; --blob-y2: 80%; }
+  }
+}
+
+/* Desktop: .gallery-viewport uses flex row with arrows as siblings */
