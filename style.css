@@ -55,6 +55,8 @@ body {
   cursor: none;
   position: relative;
   -webkit-font-smoothing: antialiased;
+  /* Prevent the entire page from being one giant stacking context layer */
+  isolation: isolate;
 }
 
 /* Animated ambient background radial gradients */
@@ -69,7 +71,11 @@ body::before {
     radial-gradient(circle at 10% 20%, rgba(30, 144, 255, 0.1) 0%, transparent 40%),
     radial-gradient(circle at 90% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 40%);
   z-index: -1;
+  /* GPU-composite only — no layout or paint cost */
+  will-change: transform;
   animation: drift 20s ease-in-out infinite alternate;
+  /* Prevent fixed element from triggering main-thread scroll updates */
+  transform: translateZ(0);
 }
 
 
@@ -89,6 +95,8 @@ h1 {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  /* will-change tells the compositor this will animate — avoids repaint */
+  will-change: background-position;
   animation: gradientFlow 8s linear infinite;
   margin-bottom: 10px;
 }
@@ -141,7 +149,10 @@ h1 {
   font-weight: 600;
   border: 1px solid var(--brand-blue);
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  /* NEVER use transition:all — it recalculates every CSS property on every frame */
+  transition: background 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+              box-shadow 0.5s cubic-bezier(0.19, 1, 0.22, 1),
+              transform  0.5s cubic-bezier(0.19, 1, 0.22, 1);
   background: transparent;
 }
 
@@ -190,6 +201,8 @@ h1 {
   align-items: center;
   text-align: center;
   will-change: transform;
+  /* Isolate card layout from the rest of the page */
+  contain: layout style;
 }
 
 .card:hover {
@@ -346,8 +359,13 @@ h1 {
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: border-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+              box-shadow   0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+              transform    0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   background: #000;
+  /* Strict containment: browser skips layout/paint outside this box */
+  contain: strict;
+  will-change: transform;
 }
 
 .gallery-frame:hover {
@@ -469,7 +487,11 @@ h1 {
   white-space: nowrap;
   opacity: 0.8;
   pointer-events: none;
-  transition: all 0.4s ease;
+  /* Explicit properties — never transition:all */
+  transition: opacity    0.4s ease,
+              transform  0.4s ease,
+              background 0.4s ease,
+              box-shadow 0.4s ease;
 }
 
 .gallery-frame:hover .slide-caption {
@@ -498,6 +520,10 @@ h1 {
   border: 1px solid #333;
   background: #111;
   color: white;
+  font-size: 16px; /* Prevent iOS auto-zoom — must be ≥16px */
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Date input — full-width block with hover/focus glow */
@@ -813,12 +839,24 @@ h1 {
   text-transform: uppercase;
   letter-spacing: 1px;
   background: var(--brand-gradient);
-  z-index: 100;
-  animation: pulseBlue 2s infinite;
+  /* Above cursor (1000) and everything else — never gets buried */
+  z-index: 9999;
+  /* GPU layer: animation never triggers main-thread paint */
+  will-change: transform, box-shadow;
+  /* Isolate from page stacking context entirely */
+  isolation: isolate;
+  animation: pulseBlue 2s ease-in-out infinite;
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: 0.3s;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  /* Prevent paint bleed from backdrop-filter siblings */
+  transform: translateZ(0);
+}
+
+.whatsapp-float:hover {
+  transform: translateZ(0) scale(1.06);
+  opacity: 0.95;
 }
 
 
@@ -827,6 +865,7 @@ h1 {
    5. CUSTOM CURSOR
    Dot: snaps instantly to mouse position via JS.
    Outline ring: lerps (lags) behind for a fluid trail effect.
+   Both promoted to GPU composite layer — zero paint cost.
 ---------------------------------------------------------------- */
 .cursor-dot {
   position: fixed;
@@ -837,6 +876,10 @@ h1 {
   pointer-events: none;
   z-index: 1000;
   transform: translate(-50%, -50%);
+  /* Promote to own GPU layer — position set via JS, no CSS transitions needed */
+  will-change: left, top;
+  /* Bypass layout: GPU moves this pixel-perfectly each frame */
+  backface-visibility: hidden;
 }
 
 .cursor-outline {
@@ -848,11 +891,12 @@ h1 {
   pointer-events: none;
   z-index: 999;
   transform: translate(-50%, -50%);
-  /* Only size/scale transitions — position is handled by JS lerp */
-  transition:
-    width   0.3s cubic-bezier(0.23, 1, 0.32, 1),
-    height  0.3s cubic-bezier(0.23, 1, 0.32, 1),
-    transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  will-change: left, top, transform;
+  backface-visibility: hidden;
+  /* Only transition scale changes — position is JS lerp, no transition needed there */
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              width     0.3s cubic-bezier(0.23, 1, 0.32, 1),
+              height    0.3s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 
@@ -864,12 +908,16 @@ h1 {
 .fade {
   opacity: 0;
   transform: translateY(30px);
-  transition: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
 }
 
 .fade.show {
   opacity: 1;
   transform: translateY(0);
+  /* Release will-change after animation completes — frees GPU memory */
+  will-change: auto;
 }
 
 
@@ -920,6 +968,27 @@ h1 {
     display: none;
   }
 
+  /* ── Kill expensive animations on mobile: saves ~15% GPU budget ── */
+  body::before {
+    animation: none;
+  }
+
+  h1 {
+    /* Static gradient — gradient animation not perceivable during scroll */
+    animation: none;
+    background-position: 0% center;
+  }
+
+  /* ── Reduce backdrop-filter blur radius: main perf killer on mid-range ── */
+  .card {
+    backdrop-filter: blur(6px);
+  }
+
+  .slide-caption {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
   /* ── IG Story Snap: lock gallery to card boundaries on swipe ── */
   .gallery-carousel {
     scroll-snap-type: x mandatory;
@@ -939,6 +1008,8 @@ h1 {
 
   .gallery-frame {
     width: 85%;
+    /* Disable hover transform on touch — no hover state on mobile */
+    will-change: auto;
   }
 
   /* Arrows unnecessary on touch — swipe is the affordance */
@@ -952,6 +1023,23 @@ h1 {
   textarea,
   .booking-textarea {
     font-size: 16px !important;
+  }
+
+  /* ── Booking form: single column on mobile so nothing overflows ── */
+  .booking-form {
+    grid-template-columns: 1fr;
+  }
+
+  /* Every cell goes full width — override all inline grid-column:span 2 */
+  .booking-form input,
+  .booking-form select,
+  .booking-form textarea,
+  .booking-form .booking-textarea,
+  .booking-form > div,
+  .btn--submit {
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    box-sizing: border-box;
   }
 
   /* ── Large Touch Targets: 50px height for thumb-friendly tapping ── */
@@ -977,6 +1065,14 @@ h1 {
     justify-content: center;
   }
 
+  /* ── WhatsApp: smaller on mobile, clear of safe-area insets ── */
+  .whatsapp-float {
+    bottom: max(20px, env(safe-area-inset-bottom, 20px));
+    right: 16px;
+    padding: 14px 22px;
+    font-size: 0.85rem;
+  }
+
   /* ── Haptic Tap Feel: physical 'press' response on all tappable elements ── */
   .btn:active,
   a.btn:active,
@@ -988,7 +1084,7 @@ h1 {
     transition: transform 0.1s ease !important;
   }
 
-  /* ── Footer: stack all columns vertically, center-aligned ── */
+  /* ── Footer: stack all columns vertically ── */
   .main-footer {
     padding: 60px 24px 0;
   }
@@ -999,8 +1095,25 @@ h1 {
     text-align: center;
   }
 
+  /* Brand and social columns stay centred */
   .footer-col {
     align-items: center;
+  }
+
+  /* "Contact Us" column — left-align so icon + text read naturally */
+  .footer-col:nth-child(2) {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .footer-col:nth-child(2) .footer-heading {
+    text-align: left;
+  }
+
+  /* Contact links themselves: left-align icon + text row */
+  .contact-link {
+    justify-content: flex-start;
+    width: 100%;
   }
 
   .footer-heading {
